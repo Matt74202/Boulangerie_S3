@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\.jar\\postgres.jar",
+        "c:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\lib\\servlet-api.jar"
+    ]
+}
