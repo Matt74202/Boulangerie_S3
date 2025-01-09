@@ -2,7 +2,7 @@
 <%@page import="model.Produit"%>
 <% 
     Vector<Produit> produits= (Vector<Produit>) request.getAttribute("produits"); 
-    out.print(produits);
+    out.print("<script>"+produits+"</script>");
 %>
 <!DOCTYPE html>
 <html lang="en">

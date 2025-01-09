@@ -1,7 +1,8 @@
 // getAllIngredient
 // getIngredientById
-
+package model;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.Vector;
 
 /**
@@ -24,6 +25,9 @@ public class Ingredients {
         setQuantite(quantite);
         setPrix(prix);
         setUnite(unite);
+    }
+    public String getNomIngredients() {
+        return nomIngredients;
     }
 
     public void setIdIngredients(int idIngredients) {
@@ -62,12 +66,53 @@ public class Ingredients {
             Ingredients ig = new Ingredients(idIngredients , nomIngredients  , quantite  , unite , prix  );
             allIngredients.add(ig);
         }
-        co.close();
-        stmt.close();
+        // co.close();
+        // stmt.close();
         return allIngredients;
 
     }
 
+public static String produitIngredient (String produitName , String ingredientName   , Connection connex) throws SQLException {
+    String  resp  = "<table>";
+    resp +="<tr>"  ;
+    resp += "<th>Produit</th>";
+    resp += "<th>Ingredient</th>";
+    resp+= "</tr>";
+
+    PreparedStatement st = null;
+    ResultSet res = null;
+    Ingredients ingredient = null;
+    Boolean creatingConn = false;
+    try {
+        if (connex == null) {
+            creatingConn = true;
+        }
+        String sql = "SELECT * FROM getIngredientByFab WHERE nomingredients='"+ingredientName+"' and nomproduit= '"+produitName+"'";
+        st = connex.prepareStatement(sql);
+        res = st.executeQuery();
+
+        if (res.next()) {
+            ingredient = new Ingredients();
+            String nomIngredients = res.getString(1);
+            String nomProduits = res.getString(2);
+            resp+= "<tr>";
+            resp +="<td>" + nomProduits + "</td>";
+            resp +="<td>" + nomIngredients + "</td>";
+            resp+="</tr>";
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if (res != null)
+            res.close();
+        if (st != null)
+            st.close();
+        if (creatingConn)
+            connex.close();
+    }
+    resp +="</table>";
+    return resp;
+}       
     public static Ingredients getById(Connection connex, int id) throws SQLException {
         PreparedStatement st = null;
         ResultSet res = null;

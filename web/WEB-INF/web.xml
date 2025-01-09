@@ -12,6 +12,10 @@
         <servlet-name>ListeProduitServlet</servlet-name>
         <servlet-class>controller.ListeProduitServlet</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>ProduitIngredient</servlet-name>
+        <servlet-class>controller.ProduitIngredient</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FabricationController</servlet-name>
         <url-pattern>/FabricationController</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ListeProduitServlet</servlet-name>
         <url-pattern>/ListeProduitServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProduitIngredient</servlet-name>
+        <url-pattern>/ProduitIngredient</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

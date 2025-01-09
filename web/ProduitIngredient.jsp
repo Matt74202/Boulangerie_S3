@@ -1,8 +1,13 @@
 <%@page import="java.util.Vector"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="model.Produit"%>
+<%@page import="model.Ingredients"%>
+
+
 <% 
     Vector<Produit> produits= (Vector<Produit>) request.getAttribute("produits"); 
-    out.print("<script>"+produits+"</script>");
+    Vector<Ingredients> ingredients= (Vector<Ingredients>) request.getAttribute("ingredients"); 
+    String produitIngredient  = request.getAttribute("produitIngredient").toString(); 
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +22,7 @@
       <meta name="author" content="">
       <link rel="icon" href="images/fevicon.png" type="image/png" />
       <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+       <link rel="stylesheet" href="./assets/css/ListeFabrication.css">
       <link rel="stylesheet" href="./assets/style.css" />
       <link rel="stylesheet" href="./assets/css/responsive.css" />
       <link rel="stylesheet" href="./assets/css/colors.css" />
@@ -90,30 +96,33 @@
                            </div>
                         </div>
                      </div>
-                      
-                     <div class="row column1">
-                         <% for(int i=0; i<produits.size(); i++){ %>
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-user yellow_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p><%= produits.get(i).getNom() %></p>
-                                    <p><%= produits.get(i).getQuantite() %></p>
-                                    <p><%= produits.get(i).getPrixVente() %></p>
-                                 </div>
-                              </div>
-                           </div>
-                            
-
-                        </div> 
-                        <%  } %>
-                                  
-      </div>
+                      <div class="container">
+        <form action="./ProduitIngredient" >
+            <div class="form-group">
+                <label for="select1">Produits</label>
+                <select id="select1" name="produit">
+                    <%  
+                    for (int i  = 0 ; i < produits.size() ; i++){ %>
+                        <option value="<%= produits.get(i).getNom()  %>"><%= produits.get(i).getNom()  %></option>
+                <%    }
+                    %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="select2">Ingredients</label>
+                <select id="select2" name="ingredient">
+                     <%  
+                    for (int i  = 0 ; i < ingredients.size() ; i++){ %>
+                        <option value="<%= ingredients.get(i).getNomIngredients()  %>"><%= ingredients.get(i).getNomIngredients()  %></option>
+                <%    }
+                    %>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Voir</button>
+        </form>
+        <%= produitIngredient  %>
+    </div>
+    <br>    
 
       <script src="./assets/js/jquery.min.js"></script>
       <script src="./assets/js/popper.min.js"></script>
